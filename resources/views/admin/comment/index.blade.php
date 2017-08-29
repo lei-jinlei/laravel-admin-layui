@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+<script src="{{ URL::asset('js/table/table_scroll.min.1.02.js') }}"></script>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -47,4 +48,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+$('table').table_scroll({
+    beginRow:0,
+    rowInScrollableArea:5
+});
+</script>
 @endsection
