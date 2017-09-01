@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // laravel-debugbar 扩展
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
