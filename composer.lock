@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a90dc066f1f06f27fa22fdb82fe18d83",
+    "content-hash": "ec9346b859a3bd0016a472776718c888",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1095,6 +1095,58 @@
                 "uuid"
             ],
             "time": "2017-08-04T13:39:04+00:00"
+        },
+        {
+            "name": "riverslei/payment",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helei112g/payment.git",
+                "reference": "e8b0fdd2566d75c82686737fd14856c1e3006b75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/helei112g/payment/e8b0fdd2566d75c82686737fd14856c1e3006b75.zip",
+                "reference": "e8b0fdd2566d75c82686737fd14856c1e3006b75",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "endroid/qrcode": "~1.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Payment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "helei",
+                    "email": "dayugog@gmail.com",
+                    "homepage": "https://helei112g.github.io/categories/payment-3/"
+                }
+            ],
+            "description": "支付宝支付、微信支付、招商一网通支付php SDK。方便快速接入，最完整的开源支付 php sdk",
+            "homepage": "https://helei112g.github.io/categories/payment-3/",
+            "keywords": [
+                "alipay",
+                "weixin",
+                "一网通",
+                "微信支付",
+                "招商一网通",
+                "支付宝支付",
+                "集成支付接口SDK"
+            ],
+            "time": "2017-07-05T15:13:35+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
