@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 Route::get('login', function () {
     return View::make('login');
@@ -54,3 +54,22 @@ Route::get('logout', array('before' => 'auth', function()
     Auth::logout();
     return Redirect::to('/');
 }));
+
+
+
+Route::get('/', function () {
+    return view('tasks');
+});
+/**
+ * 增加新的任务
+ */
+Route::post('/task', function (Request $request) {
+    //
+});
+
+/**
+ * 删除一个已有的任务
+ */
+Route::delete('/task/{id}', function ($id) {
+    //
+});
