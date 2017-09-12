@@ -147,7 +147,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
+        // 测试助手函数添加
+        App\Providers\HelperServiceProvider::class,
 
     ],
 
