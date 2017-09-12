@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Task;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -57,19 +59,43 @@ Route::get('logout', array('before' => 'auth', function()
 
 
 
-Route::get('/', function () {
-    return view('tasks');
-});
-/**
- * 增加新的任务
- */
-Route::post('/task', function (Request $request) {
-    //
-});
+// Route::get('/', function () {
+//     $tasks = Task::orderBy('created_at', 'asc')->get();
+//     return view('tasks.tasks', [
+//         'tasks' => $tasks
+//     ]);
+// });
+// /**
+//  * 增加新的任务
+//  */
+// Route::post('/task', function (Request $request) {
+//     $validator = Validator::make($request->all(), [
+//         'name' => 'required|max:255',
+//     ]);
+//
+//     if ($validator->fails()) {
+//         return redirect('/')
+//             ->withInput()
+//             ->withErrors($validator);
+//     }
+//     // 创建该任务...
+//     $task = new Task;
+//     $task->name = $request->name;
+//     $task->save();
+//     return redirect('/');
+// });
+//
+// /**
+//  * 删除一个已有的任务
+//  */
+// Route::delete('/task/{id}', function ($id) {
+//     //
+//     Task::findOrFail($id)->delete();
+//
+//     return redirect('/');
+// });
 
-/**
- * 删除一个已有的任务
- */
-Route::delete('/task/{id}', function ($id) {
-    //
-});
+
+Route::get('/tasks', 'TaskController@index');
+Route::post('/task', 'TaskController@store');
+Route::delete('/task/{task}', 'TaskController@destroy');
