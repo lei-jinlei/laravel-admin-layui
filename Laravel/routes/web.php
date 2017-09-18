@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-<<<<<<< HEAD
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -20,8 +18,3 @@ Route::get('/help', 'StaticPagesController@help')->name('help');
 Route::get('/about', 'StaticPagesController@about')->name('about');
 
 Route::get('/signup', 'UsersController@create')->name('signup');
-=======
-Route::get('/', function () {
-    return view('welcome');
-});
->>>>>>> parent of 051829a... 页面基本搭建，前端流程执行成功
