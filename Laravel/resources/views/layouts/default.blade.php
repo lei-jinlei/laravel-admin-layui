@@ -9,6 +9,9 @@
 
     <div class="container">
       @yield('content')
+      @include('layouts._footer')
     </div>
+
+
   </body>
 </html>
