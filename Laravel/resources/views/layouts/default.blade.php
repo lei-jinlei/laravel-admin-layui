@@ -13,6 +13,6 @@
       @include('layouts._footer')
     </div>
 
-
+    <script src="/js/app.js"></script>
   </body>
 </html>
