@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(3);
+var bind = __webpack_require__(2);
 var isBuffer = __webpack_require__(17);
 
 /*global toString:true*/
@@ -397,10 +397,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(4);
+    adapter = __webpack_require__(3);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(4);
+    adapter = __webpack_require__(3);
   }
   return adapter;
 }
@@ -475,33 +475,6 @@ module.exports = defaults;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -519,7 +492,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -530,7 +503,7 @@ var settle = __webpack_require__(21);
 var buildURL = __webpack_require__(23);
 var parseHeaders = __webpack_require__(24);
 var isURLSameOrigin = __webpack_require__(25);
-var createError = __webpack_require__(5);
+var createError = __webpack_require__(4);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(26);
 
 module.exports = function xhrAdapter(config) {
@@ -706,7 +679,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -731,7 +704,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -743,7 +716,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -769,15 +742,15 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(9);
-module.exports = __webpack_require__(40);
+__webpack_require__(8);
+module.exports = __webpack_require__(35);
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -787,7 +760,7 @@ module.exports = __webpack_require__(40);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(10);
+__webpack_require__(9);
 
 // window.Vue = require('vue');
 
@@ -804,11 +777,11 @@ __webpack_require__(10);
 // });
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(11);
+window._ = __webpack_require__(10);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -862,7 +835,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -17951,7 +17924,34 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(12)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(12)(module)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 12 */
@@ -30638,7 +30638,7 @@ module.exports = __webpack_require__(16);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(3);
+var bind = __webpack_require__(2);
 var Axios = __webpack_require__(18);
 var defaults = __webpack_require__(1);
 
@@ -30673,9 +30673,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(7);
+axios.Cancel = __webpack_require__(6);
 axios.CancelToken = __webpack_require__(33);
-axios.isCancel = __webpack_require__(6);
+axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -31025,7 +31025,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(5);
+var createError = __webpack_require__(4);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -31444,7 +31444,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(30);
-var isCancel = __webpack_require__(6);
+var isCancel = __webpack_require__(5);
 var defaults = __webpack_require__(1);
 
 /**
@@ -31597,7 +31597,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(7);
+var Cancel = __webpack_require__(6);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -31689,12 +31689,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */
+/* 35 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
