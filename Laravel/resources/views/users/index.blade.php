@@ -12,4 +12,4 @@
 
     {!! $users->render() !!}
 </div>
-@stop
+@endsection
