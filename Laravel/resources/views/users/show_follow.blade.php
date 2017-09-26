@@ -10,6 +10,10 @@
                 <img src="{{ $user->gravatar() }}" alt="{{ $user->name }}" class="gravatar"/>
                 <a href="{{ route('users.show', $user->id) }}" class="username">{{ $user->name }}</a>
             </li>
+            <li>
+                @include('users._follow_form', ['user' => $user])
+            </li>
+            
         @endforeach
     </ul>
 

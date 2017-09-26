@@ -24,7 +24,9 @@ class FollowersController extends Controller
             Auth::user()->follow($user->id);
         }
 
-        return redirect()->route('users.show', $user->id);
+        session()->flash('success', '关注成功！');
+
+        return redirect()->back();
     }
 
     public function destroy(User $user)
@@ -37,6 +39,8 @@ class FollowersController extends Controller
             Auth::user()->unFollow($user->id);
         }
 
-        return redirect()->route('users.show', $user->id);
+        session()->flash('success', '取消关注成功！');
+
+        return redirect()->back();
     }
 }
