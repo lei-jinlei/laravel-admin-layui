@@ -38,3 +38,5 @@ Route::get('/users/{user}/followers', 'UsersController@followers')->name('users.
 
 Route::post('/uers/follwers/{user}', 'FollowersController@store')->name('followers.store');
 Route::delete('/users/follwers/{user}', 'FollowersController@destroy')->name('followers.destroy');
+
+Route::resource('student', 'StudentController');
