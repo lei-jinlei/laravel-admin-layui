@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title', '注册')
+@section('title', '学生详情')
 
 @section('content')
 <div class="row">
