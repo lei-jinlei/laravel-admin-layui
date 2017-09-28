@@ -1,7 +1,10 @@
 @extends('layouts.default')
-@section('title', '学生列表')
+@section('title', '注册')
 
 @section('content')
+<div class="row">
+    <h1><a href="{{ route('students.index') }}"> 学生列表</a></h1>
+</div>
 <div class="row">
     <table class="table">
         <thead>
@@ -16,9 +19,8 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($students as $student)
             <tr>
-                <td><a href="{{ route('students.show', $student->id) }}">{{ $student->name }}</a></td>
+                <td>{{ $student->name }}</td>
                 <td>{{ $student->sex }}</td>
                 <td>{{ $student->age }}</td>
                 <td>{{ $student->created_at }}</td>
@@ -34,9 +36,7 @@
                     </form>
                 </td>
             </tr>
-            @endforeach
         </tbody>
     </table>
-    {!! $students->render() !!}
 </div>
 @endsection
