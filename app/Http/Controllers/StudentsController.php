@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class StudentsController extends Controller
 {
@@ -276,6 +277,7 @@ class StudentsController extends Controller
 
     }
 
+    // Request 操作
     public function request1(Request $request)
     {
         // 取值
@@ -303,14 +305,86 @@ class StudentsController extends Controller
         
     }
 
-    public function session1()
+    public function session1(Request $request)
     {
+        // 1.HTTP request session()
+        // $request->session()->put('key1', 'value1');
+        // $request->session()->get('key1');
+
+        // session()
+        // session()->put('key2', 'value2');
+        // session()->get('key2');
+
+        // 存储数据到Session
+        Session::put('key3', 'value3');
         
+        // 获取Session的值
+        Session::get('key3');
+        // 不存在取默认值
+        Session::get('key4', 'default');
+
+        // 已数组的形式存储数据
+        Session::put(['key4' => 'value4']);
+
+        // 把数据放到Session的数组中
+        Session::push('student', 'sean');
+        Session::push('student', 'dom');
+
+        // 取出数据并删除
+        Session::pull('student', 'default');
+
+        // 判断
+        Session::has('key11');
+    
+        // 删除Session中指定key的值
+        Session::forget('key3');
+
+        // 清空所以session信息
+        Session::flush();
     }
 
-    public function session2()
+    public function session2(Request $request)
     {
+        dd(session()->all());
+    }
 
+    public function response()
+    {
+        $data = [
+            'errCode'   => 0,
+            'errMsg'    => 'success',
+            'data'      => 'sean',
+        ];
+
+        reponse()->json($data);
+
+        // 重定向
+        return redirect('session2')->with('message', '我是快闪数据');
+
+        // action()
+        return redirect()->action('Student@session2');
+
+        // route()
+        return redirect()->route('session2')->with('message', '我是快闪数据');
+
+        return redirect()->back();
+
+
+    }
+
+    // 活动的宣传页面
+    public function activity0()
+    {
+        return '活动快要开始啦，敬请期待';
+    }
+    
+    public function activity1()
+    {
+        return '活动进行中，谢谢您的参与1';
+    }
+    public function activity2()
+    {
+        return '活动进行中，谢谢您的参与2';
     }
 
 

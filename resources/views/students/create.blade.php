@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="col-md-offset-2 col-md-8">
+    <h3><a href="{{ route('students.index') }}">学生列表</a></h3>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h5>添加学生</h5>
@@ -24,11 +25,15 @@
                 </div>
                 <div class="form-group">
                     <label for="sex">性别：</label>
-                    <select name="sex" class="form-control">
-                        <option value="0">保密</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" checked>保密
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1"> 男
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="2"> 女
+                    </label>
                 </div>
 
                 <button type="submit" class="btn btn-primary">注册</button>

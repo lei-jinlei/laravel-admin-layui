@@ -13,7 +13,7 @@ class Student extends Model
     protected $primaryKey = 'id';
 
     // 自动维护时间戳
-    protected $timestamps = true;
+    public $timestamps = true;
 
     // 设置维护时间变成手机戳
     // protected function getDateFormat()

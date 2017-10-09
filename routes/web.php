@@ -40,3 +40,14 @@ Route::post('/uers/follwers/{user}', 'FollowersController@store')->name('followe
 Route::delete('/users/follwers/{user}', 'FollowersController@destroy')->name('followers.destroy');
 
 Route::resource('students', 'StudentsController');
+Route::get('/session1', 'StudentsController@session1');
+Route::get('/session2', 'StudentsController@session2');
+
+// 宣传页面
+Route::any('activity0', 'StudentsController@activity0');
+// 活动页面
+Route::group(['middleware' => ['activity']], function(){
+    Route::any('activity1', 'StudentsController@activity1');
+    Route::any('activity2', 'StudentsController@activity2');
+});
+

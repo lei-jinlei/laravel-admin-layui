@@ -14,6 +14,9 @@
     </div>
 </div>
 <div class="row">
+    <h3><a href="{{ route('students.create') }}">添加学生</a></h3>
+</div>
+<div class="row">
     <table class="table">
         <thead>
             <tr>
