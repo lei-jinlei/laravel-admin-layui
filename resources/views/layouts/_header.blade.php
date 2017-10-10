@@ -4,6 +4,7 @@
             <a href="{{ route('home') }}" id="logo">Sample App</a>
             <nav>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ route('students.index') }}">学生列表</a></li>
                 @if (Auth::check())
                     <li><a href="{{ route('users.index') }}">用戶列表</a></li>
                     <li class="dropdown">

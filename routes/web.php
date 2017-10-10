@@ -44,10 +44,12 @@ Route::get('/session1', 'StudentsController@session1');
 Route::get('/session2', 'StudentsController@session2');
 
 // 宣传页面
-Route::any('activity0', 'StudentsController@activity0');
+Route::get('activity0', 'StudentsController@activity0');
 // 活动页面
 Route::group(['middleware' => ['activity']], function(){
     Route::any('activity1', 'StudentsController@activity1');
     Route::any('activity2', 'StudentsController@activity2');
 });
 
+
+Route::any('/wechat', 'WeChatController@serve');
