@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use Session;
+use Storage;
 
 class StudentsController extends Controller
 {
@@ -387,5 +388,31 @@ class StudentsController extends Controller
         return '活动进行中，谢谢您的参与2';
     }
 
+    public function upload(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $file =  $request->file('source');
+            
+            // 文件是否上传成功
+            if ($file->isValid()) {
+                // 原文件名
+                $originalName = $file->getClientOriginalName();
+                // 扩展名
+                $ext = $file->getClientOriginalExtension();
+                // MimeType
+                $type = $file->getClientMimeType();
+                // 临时绝对路径
+                $realPath = $file->getRealPath();
+
+                $filename = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
+
+                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
+
+                
+            }
+            exit;
+        }
+        return view('students.upload');
+    }
 
 }

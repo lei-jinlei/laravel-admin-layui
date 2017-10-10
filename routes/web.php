@@ -51,5 +51,8 @@ Route::group(['middleware' => ['activity']], function(){
     Route::any('activity2', 'StudentsController@activity2');
 });
 
+Route::any('upload/test', 'StudentsController@upload');
+
+
 
 Route::any('/wechat', 'WeChatController@serve');
