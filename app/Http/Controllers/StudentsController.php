@@ -8,6 +8,7 @@ use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use Session;
 use Storage;
+use Mail;
 
 class StudentsController extends Controller
 {
@@ -388,6 +389,7 @@ class StudentsController extends Controller
         return '活动进行中，谢谢您的参与2';
     }
 
+    // 文件上传测试
     public function upload(Request $request)
     {
         if ($request->isMethod('POST')) {
@@ -408,11 +410,28 @@ class StudentsController extends Controller
 
                 $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
 
-                
+                var_dump($bool);
             }
             exit;
         }
         return view('students.upload');
+    }
+
+    // 邮件发送测试
+    public function mail()
+    {
+        // Mail::raw('邮件内容 内容内容', function($message) {
+        //     $message->from('leijinlei_phper@163.com', '雷先生');
+        //     $message->subject('邮件主题 测试');
+        //     $message->to('454592733@qq.com');
+        // });
+
+        // 使用邮件模板
+        Mail::send('emails.test', ['name' => '小王', 'value' => '这是值'], function($message) {
+            $message->from('leijinlei_phper@163.com', '雷师父');
+            $message->subject('邮件主题是测试233');
+            $message->to('454592733@qq.com');
+        });
     }
 
 }

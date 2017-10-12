@@ -52,6 +52,7 @@ Route::group(['middleware' => ['activity']], function(){
 });
 
 Route::any('upload/test', 'StudentsController@upload');
+Route::any('mail', 'StudentsController@mail');
 
 
 
