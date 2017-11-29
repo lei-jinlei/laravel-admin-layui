@@ -6,6 +6,7 @@ use App\Notifications\ResetPassword;
 use function foo\func;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -61,7 +62,11 @@ class User extends Authenticatable
     // 微博列表
     public function feed()
     {
-        return $this->statuses()->orderBy('created_at', 'desc');
+        $user_ids = Auth::user()->followings->pluck('id')->toArray();
+        array_push($user_ids, Auth::user()->id);
+        return Status::whereIn('user_id', $user_ids)
+                        ->with('user')
+                        ->orderBy('created_at', 'desc');
     }
 
     // 粉丝
@@ -89,9 +94,9 @@ class User extends Authenticatable
     public function unfollow($user_ids)
     {
         if (!is_array($user_ids)){
-            $user_ids = compact($user_ids);
+            $user_ids = compact('user_ids');
         }
-        $this->followings()->delete($user_ids);
+        $this->followings()->detach($user_ids);
     }
 
     // 是否关注
