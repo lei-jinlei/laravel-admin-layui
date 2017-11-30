@@ -1,3 +1,6 @@
+<h3 align="center">Laravel 进阶教程</h3>
+<p align="center">在 Laravel 进阶课程中，我们会创建一个论坛系统。在论坛系统的构建中，我们将学到多角色用户权限系统、管理员后台、注册验证码、图片上传、图片裁剪，XSS 防御、自定义命令行、自定义中间件、任务调度、队列系统的使用、应用缓存、Redis、模型事件监控、表单验证、消息通知、邮件通知、模型修改器等知识。
+</p>
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
