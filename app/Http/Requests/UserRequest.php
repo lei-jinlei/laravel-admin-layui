@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             'name'          => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . Auth::id(),
             'email'         => 'required|email',
             'introduction'  => 'max:80',
+            'avatar'        => 'mimes:jpeg,bmg,png,gif|dimensions:min_width=200,min_height=200',
         ];
     }
 
