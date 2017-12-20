@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
         $user = User::find(1);
         $user->name = 'lei';
         $user->email = '123@qq.com';
-        $user->avatar = 'http://larabbs.app/uploads/images/avatar/201712/02//1_1512219861_nd1Kkjfmrn.jpg';
+        $user->avatar = 'http://larabbs.app/uploads/images/avatars/201712/17/1_1513501234_7KHa4c7uxs.jpg';
         $user->save();
 
         // 初始化用户角色，将 1 号用户指派为『站长』
