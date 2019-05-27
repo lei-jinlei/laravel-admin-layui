@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,14 +13,15 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-	{
-		\App\Models\User::observe(\App\Observers\UserObserver::class);
-		\App\Models\Reply::observe(\App\Observers\ReplyObserver::class);
-		\App\Models\Topic::observe(\App\Observers\TopicObserver::class);
-		\App\Models\Link::observe(\App\Observers\LinkOberver::class);
-
-        //
-        \Carbon\Carbon::setLocale('zh');
+    {
+        Schema::defaultStringLength(191);
+        //左侧菜单
+        view()->composer('admin.layout',function($view){
+            $menus = \App\Models\Permission::with([
+                'childs'=>function($query){$query->with('icon');}
+                ,'icon'])->where('parent_id',0)->orderBy('sort','desc')->get();
+            $view->with('menus',$menus);
+        });
     }
 
     /**
@@ -29,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (app()->isLocal()) {
-            $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
+        if ($this->app->environment() == 'local') {
+            $this->app->register('Iber\Generator\ModelGeneratorProvider');
         }
     }
 }
