@@ -19,21 +19,21 @@
         <div class="layui-logo">{{ config('app.name', 'Admin') }}</div>
 
         <!-- 头部区域(左) -->
-        {{--<ul class="layui-nav layui-layout-left">--}}
-            {{--<li class="layui-nav-item"><a href="">控制台</a></li>--}}
-            {{--<li class="layui-nav-item"><a href="">商品管理</a></li>--}}
-            {{--<li class="layui-nav-item"><a href="">用户</a></li>--}}
-            {{--<li class="layui-nav-item">--}}
-                {{--<a href="javascript:;">其它系统</a>--}}
-                {{--<dl class="layui-nav-child">--}}
-                    {{--<dd><a href="">邮件管理</a></dd>--}}
-                    {{--<dd><a href="">消息管理</a></dd>--}}
-                    {{--<dd><a href="">授权管理</a></dd>--}}
-                {{--</dl>--}}
-            {{--</li>--}}
-        {{--</ul>--}}
+    {{--<ul class="layui-nav layui-layout-left">--}}
+    {{--<li class="layui-nav-item"><a href="">控制台</a></li>--}}
+    {{--<li class="layui-nav-item"><a href="">商品管理</a></li>--}}
+    {{--<li class="layui-nav-item"><a href="">用户</a></li>--}}
+    {{--<li class="layui-nav-item">--}}
+    {{--<a href="javascript:;">其它系统</a>--}}
+    {{--<dl class="layui-nav-child">--}}
+    {{--<dd><a href="">邮件管理</a></dd>--}}
+    {{--<dd><a href="">消息管理</a></dd>--}}
+    {{--<dd><a href="">授权管理</a></dd>--}}
+    {{--</dl>--}}
+    {{--</li>--}}
+    {{--</ul>--}}
 
-        <!-- 头部区域(右) -->
+    <!-- 头部区域(右) -->
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -63,31 +63,77 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree">
 
-                <li class="layui-nav-item @if(request()->routeIs('admin.index')) layui-this @endif" >
+                <li class="layui-nav-item  >
 
                     <a href="{{ route('admin.index') }}" lay-tips="首页">
-                        <i class="layui-icon layui-icon-home"></i>
-                        <cite>首页</cite>
-                    </a>
+                <i class="layui-icon layui-icon-home"></i>
+                <cite>首页</cite>
+                </a>
                 </li>
 
                 @foreach($menus as $menu)
                     @can($menu->name)
+
+                        {{-- 主目录 --}}
                         <li data-name="{{$menu->name}}" class="layui-nav-item
                             @foreach($menu->childs as $subMenu)
-                                @if(request()->routeIs($subMenu->route)) layui-nav-itemed @endif
+                                @if(request()->routeIs($subMenu->route))
+                                    layui-nav-itemed
+                                    @break
+                                @endif
+                                @if($subMenu->childs->isNotEmpty())
+                                    @foreach($subMenu->childs as $thirdMenu)
+                                        @if(request()->routeIs($thirdMenu->route))
+                                            layui-nav-itemed
+                                            @break
+                                        @endif
+                                    @endforeach
+                                @endif
                             @endforeach
                         ">
                             <a href="javascript:;" lay-tips="{{$menu->display_name}}">
                                 <i class="layui-icon {{$menu->icon->class??''}}"></i>
                                 <cite>{{$menu->display_name}}</cite>
                             </a>
+
+                            {{-- 二级目录 --}}
                             @if($menu->childs->isNotEmpty())
                                 <dl class="layui-nav-child">
                                     @foreach($menu->childs as $subMenu)
                                         @can($subMenu->name)
-                                            <dd data-name="{{$subMenu->name}}" @if(request()->routeIs($subMenu->route)) class="layui-this" @endif>
-                                                <a href="{{ route($subMenu->route) }}">{{$subMenu->display_name}}</a>
+                                            <dd data-name="{{$subMenu->name}}"
+                                                @if($subMenu->route)
+                                                @if(request()->routeIs($subMenu->route)) class="layui-this" @endif
+                                                @else
+                                                @if($subMenu->childs->isNotEmpty())
+                                                @foreach($subMenu->childs as $thirdMenu)
+                                                @if(request()->routeIs($thirdMenu->route))
+                                                class="layui-nav-item layui-nav-itemed"
+                                                    @break
+                                                    @endif
+                                                    @endforeach
+                                                    @endif
+                                                    @endif
+                                            >
+                                                <a href="{{ $subMenu->route ? route($subMenu->route) : 'javascript:;' }}">
+                                                    {{$subMenu->display_name}}
+                                                </a>
+
+                                                {{-- 三级目录 --}}
+                                                @if($subMenu->childs->isNotEmpty() && !$subMenu->route)
+                                                    <dl class="layui-nav-child">
+                                                        @foreach($subMenu->childs as $thirdMenu)
+                                                            @can($thirdMenu->name)
+                                                                <dd data-name="{{$thirdMenu->name}}" @if(request()->routeIs($thirdMenu->route)) class="layui-this" @endif>
+                                                                    <a href="{{ $thirdMenu->route ? route($thirdMenu->route) : 'javascript:;' }}">
+                                                                        {{$thirdMenu->display_name}}
+                                                                    </a>
+                                                                </dd>
+                                                            @endcan
+                                                        @endforeach
+                                                    </dl>
+                                                @endif
+
                                             </dd>
                                         @endcan
                                     @endforeach
@@ -125,10 +171,10 @@
 
         //错误提示
         @if(count($errors)>0)
-            @foreach($errors->all() as $error)
-                layer.msg("{{$error}}",{icon:5});
-                @break
-            @endforeach
+        @foreach($errors->all() as $error)
+        layer.msg("{{$error}}",{icon:5});
+        @break
+        @endforeach
         @endif
 
         //信息提示
