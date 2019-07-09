@@ -1,4 +1,4 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::redirect('/', '/admin', 301)->name('home');

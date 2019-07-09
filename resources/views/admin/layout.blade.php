@@ -40,20 +40,15 @@
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
                     {{ Auth::user()->name }}
                 </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                </dl>
+                @can('system.user.edit')
+                    <dl class="layui-nav-child">
+                        <dd><a href="{{ route('admin.user.edit', ['id' => Auth::user()->id]) }}">基本资料</a></dd>
+                    </dl>
+                @endcan
             </li>
             <li class="layui-nav-item">
-                <a href="{{ route('logout') }}"
-                   onclick="event.preventDefault();document.getElementById('logout-form').submit();
-                ">
-                    退出
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form></li>
+                <a href="{{route('admin.logout')}}">退出</a>
+            </li>
         </ul>
     </div>
 
@@ -63,12 +58,12 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree">
 
-                <li class="layui-nav-item  >
+                <li class="layui-nav-item">
 
                     <a href="{{ route('admin.index') }}" lay-tips="首页">
-                <i class="layui-icon layui-icon-home"></i>
-                <cite>首页</cite>
-                </a>
+                        <i class="layui-icon layui-icon-home"></i>
+                        <cite>首页</cite>
+                    </a>
                 </li>
 
                 @foreach($menus as $menu)
@@ -77,21 +72,10 @@
                         {{-- 主目录 --}}
                         <li data-name="{{$menu->name}}" class="layui-nav-item
                             @foreach($menu->childs as $subMenu)
-                                @if(request()->routeIs($subMenu->route))
-                                    layui-nav-itemed
-                                    @break
-                                @endif
-                                @if($subMenu->childs->isNotEmpty())
-                                    @foreach($subMenu->childs as $thirdMenu)
-                                        @if(request()->routeIs($thirdMenu->route))
-                                            layui-nav-itemed
-                                            @break
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @endforeach
-                        ">
-                            <a href="javascript:;" lay-tips="{{$menu->display_name}}">
+                        @if(request()->routeIs($subMenu->route)) layui-nav-itemed  @break @endif
+                        @endforeach
+                                ">
+                            <a href="javascript:;" lay-tips="{{$menu->display_name}}" lay-direction="2">
                                 <i class="layui-icon {{$menu->icon->class??''}}"></i>
                                 <cite>{{$menu->display_name}}</cite>
                             </a>
@@ -101,48 +85,19 @@
                                 <dl class="layui-nav-child">
                                     @foreach($menu->childs as $subMenu)
                                         @can($subMenu->name)
-                                            <dd data-name="{{$subMenu->name}}"
-                                                @if($subMenu->route)
-                                                @if(request()->routeIs($subMenu->route)) class="layui-this" @endif
-                                                @else
-                                                @if($subMenu->childs->isNotEmpty())
-                                                @foreach($subMenu->childs as $thirdMenu)
-                                                @if(request()->routeIs($thirdMenu->route))
-                                                class="layui-nav-item layui-nav-itemed"
-                                                    @break
-                                                    @endif
-                                                    @endforeach
-                                                    @endif
-                                                    @endif
-                                            >
-                                                <a href="{{ $subMenu->route ? route($subMenu->route) : 'javascript:;' }}">
+                                            <dd data-name="{{$subMenu->name}}" @if(request()->routeIs($subMenu->route)) class="layui-this" @endif>
+                                                <a href="{{route($subMenu->route)}}">
                                                     {{$subMenu->display_name}}
                                                 </a>
-
-                                                {{-- 三级目录 --}}
-                                                @if($subMenu->childs->isNotEmpty() && !$subMenu->route)
-                                                    <dl class="layui-nav-child">
-                                                        @foreach($subMenu->childs as $thirdMenu)
-                                                            @can($thirdMenu->name)
-                                                                <dd data-name="{{$thirdMenu->name}}" @if(request()->routeIs($thirdMenu->route)) class="layui-this" @endif>
-                                                                    <a href="{{ $thirdMenu->route ? route($thirdMenu->route) : 'javascript:;' }}">
-                                                                        {{$thirdMenu->display_name}}
-                                                                    </a>
-                                                                </dd>
-                                                            @endcan
-                                                        @endforeach
-                                                    </dl>
-                                                @endif
-
                                             </dd>
                                         @endcan
                                     @endforeach
                                 </dl>
                             @endif
+
                         </li>
                     @endcan
                 @endforeach
-
             </ul>
         </div>
     </div>
@@ -159,6 +114,11 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
+    layui.config({
+        base: '/static/layui_extends/',
+    }).extend({
+        excel: 'excel',
     });
 
     layui.use(['element','form','layer','table','upload','laydate'],function () {
