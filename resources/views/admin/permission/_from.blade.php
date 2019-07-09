@@ -43,6 +43,12 @@
     </div>
 </div>
 <div class="layui-form-item">
+    <label for="" class="layui-form-label">排序</label>
+    <div class="layui-input-block">
+        <input class="layui-input" type="text" name="sort" value="{{$permission->sort??old('sort')}}" placeholder="排序" >
+    </div>
+</div>
+<div class="layui-form-item">
     <label for="" class="layui-form-label">图标</label>
     <div class="layui-input-inline">
         <input class="layui-input" type="hidden" name="icon_id" >

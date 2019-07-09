@@ -15,6 +15,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('/index', 'IndexController@index')->name('admin.index');
     //图标
     Route::get('icons', 'IndexController@icons')->name('admin.icons');
+    // 目录
+    Route::get('menus', 'IndexController@menus')->name('admin.menus');
 });
 
 // 后台管理
