@@ -56,7 +56,7 @@
         <div class="layui-side-scroll">
 
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree">
+            <ul class="layui-nav layui-nav-tree" id="left-menu">
 
                 <li class="layui-nav-item">
 
@@ -143,6 +143,48 @@
         @endif
     });
 
+    // 优化目录待定
+    /**
+     $(function () {
+        if (!localStorage.getItem("menus")) {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('admin.menus') }}",
+                dataType: "json",
+                success: function (res) {
+                    localStorage.setItem("menus", JSON.stringify(res.data));
+                }
+            });
+
+        }
+        menus = JSON.parse(localStorage.getItem("menus"));
+        console.log(menus);
+
+        $.each(menus, function (i, item) {
+            var str = '<li data-name="'+ item.name +'" class="layui-nav-item ">\n' +
+                '    <a href="javascript:;" lay-tips="'+ item.display_name +'" lay-direction="2">\n' +
+                '    <i class="layui-icon layui-icon-util"></i>\n' +
+                '    <cite>'+ item.display_name +'</cite>\n' +
+                '    </a>' +
+                '<dl class="layui-nav-child" id='+ item.name +'>';
+
+
+            $.each(item.childs, function (j, child) {
+                str += '     <dd data-name="'+ child.name +'" class="">\n' +
+                    '       <a href="http://local.admin.com/admin/subscribePlayer">\n' +
+                    '            '+ child.display_name +'' +
+                    '       </a>\n' +
+                    '     </dd>';
+            });
+
+            str += '</dl></li>';
+
+            $('#left-menu').append(
+                str
+            );
+        })
+    });
+     */
 
 </script>
 @yield('script')
