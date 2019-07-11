@@ -1,6 +1,6 @@
 {{csrf_field()}}
 <div class="layui-form-item">
-    <label for="" class="layui-form-label">用户名</label>
+    <label for="" class="layui-form-label">登录名</label>
     <div class="layui-input-inline">
         <input type="text" name="username" value="{{ $user->username ?? old('username') }}" lay-verify="required" placeholder="请输入用户名" class="layui-input" >
     </div>
