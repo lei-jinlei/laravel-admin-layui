@@ -90,6 +90,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
             Route::get('systemLog', 'SystemLogController@index')->name('admin.systemLog');
         });
 
+        //Redis管理
+        Route::group(['middleware' => 'permission:system.redisManager'], function () {
+            Route::get('redis-manager')->name('admin.redisManager');
+        });
+
         // 操作日志管理
         Route::group(['middleware' => 'permission:system.operationLog'], function () {
             Route::get('operationLog', 'OperationLogController@index')->name('admin.operationLog');

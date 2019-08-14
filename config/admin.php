@@ -62,6 +62,12 @@ return [
                     'display_name' => '操作日志',
                     'route' => 'admin.operationLog',
                     'icon_id' => '12',
+                ],
+                [
+                    'name' => 'system.redisManager',
+                    'display_name' => 'Redis管理',
+                    'route' => 'admin.redisManager',
+                    'icon_id' => '12',
                 ]
             ]
         ],
