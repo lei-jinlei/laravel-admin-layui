@@ -14,11 +14,10 @@ class IndexController extends Controller
 {
     /**
      * 后台首页
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('admin.index.index');
+        return view('admin.layouts.layout');
     }
 
     public function index1()

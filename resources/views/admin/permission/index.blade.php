@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.layouts.page')
 
 @section('content')
     <div class="layui-card">

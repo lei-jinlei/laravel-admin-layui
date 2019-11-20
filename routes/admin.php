@@ -13,10 +13,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('/', 'IndexController@index')->name('admin.layout');
     //后台首页
     Route::get('/index', 'IndexController@index')->name('admin.index');
+    //后台首页
+    Route::get('/index1', 'IndexController@index1')->name('admin.index1');
     //图标
     Route::get('icons', 'IndexController@icons')->name('admin.icons');
     // 目录
-    Route::get('menus', 'IndexController@menus')->name('admin.menus');
+    Route::get('init', 'ApiController@init')->name('admin.init');
 });
 
 // 后台管理
