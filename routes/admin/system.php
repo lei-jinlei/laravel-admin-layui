@@ -3,7 +3,7 @@
 // 系统管理
 Route::group(['middleware' => ['auth', 'operation.log', 'permission:admin.system']], function () {
         //数据表格接口
-        Route::get('data', 'UserController@data')->name('admin.data')->middleware('permission:system.role|admin.system.user.index|system.permission');
+        Route::get('data', 'IndexController@data')->name('admin.data')->middleware('permission:admin.system.user.index|admin.system.user.index|admin.system.permission.index');
         //用户管理
         Route::group(['middleware' => ['permission:admin.system.user.index']], function () {
             Route::get('user', 'UserController@index')->name('admin.system.user.index');
@@ -48,19 +48,6 @@ Route::group(['middleware' => ['auth', 'operation.log', 'permission:admin.system
             Route::put('permission/{id}/update', 'PermissionController@update')->name('admin.system.permission.update')->middleware('permission:admin.system.permission.edit');
             //删除
             Route::delete('permission/destroy', 'PermissionController@destroy')->name('admin.system.permission.destroy')->middleware('permission:admin.system.permission.destroy');
-        });
-        //菜单管理
-        Route::group(['middleware' => 'permission:admin.system.menu'], function () {
-            Route::get('menu', 'MenuController@index')->name('admin.menu');
-            Route::get('menu/data', 'MenuController@data')->name('admin.menu.data');
-            //添加
-            Route::get('menu/create', 'MenuController@create')->name('admin.menu.create')->middleware('permission:admin.system.menu.create');
-            Route::post('menu/store', 'MenuController@store')->name('admin.menu.store')->middleware('permission:admin.system.menu.create');
-            //编辑
-            Route::get('menu/{id}/edit', 'MenuController@edit')->name('admin.menu.edit')->middleware('permission:admin.system.menu.edit');
-            Route::put('menu/{id}/update', 'MenuController@update')->name('admin.menu.update')->middleware('permission:admin.system.menu.edit');
-            //删除
-            Route::delete('menu/destroy', 'MenuController@destroy')->name('admin.menu.destroy')->middleware('permission:admin.system.menu.destroy');
         });
 
         //系统日志管理
