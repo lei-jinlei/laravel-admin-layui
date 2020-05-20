@@ -9,7 +9,7 @@
             <h2>用户【{{$user->name}}】分配角色</h2>
         </div>
         <div class="layui-card-body">
-            <form class="layui-form" action="{{route('admin.user.assignRole',['user'=>$user])}}" method="post">
+            <form class="layui-form" action="{{route('admin.system.user.assignRole',['user'=>$user])}}" method="post">
                 {{csrf_field()}}
                 {{method_field('put')}}
                 <div class="layui-form-item">
@@ -25,7 +25,7 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">确 认</button>
-                        <a class="layui-btn" href="{{route('admin.user')}}" >返 回</a>
+                        <a class="layui-btn" href="{{route('admin.system.user.index')}}" >返 回</a>
                     </div>
                 </div>
             </form>

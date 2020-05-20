@@ -14,7 +14,7 @@
             <h2>用户 【{{$user->name}}】分配直接权限，直接权限与角色拥有的角色权限不冲突</h2>
         </div>
         <div class="layui-card-body">
-            <form action="{{route('admin.user.assignPermission',['user'=>$user])}}" method="post" class="layui-form">
+            <form action="{{route('admin.system.user.assignPermission',['user'=>$user])}}" method="post" class="layui-form">
                 {{csrf_field()}}
                 {{method_field('put')}}
                 @forelse($permissions as $first)
@@ -44,7 +44,7 @@
                 @endforelse
                 <div class="layui-form-item">
                     <button type="submit" class="layui-btn" lay-submit="" >确 认</button>
-                    <a href="{{route('admin.user')}}"  class="layui-btn" >返 回</a>
+                    <a href="{{route('admin.system.user.index')}}"  class="layui-btn" >返 回</a>
                 </div>
 
             </form>

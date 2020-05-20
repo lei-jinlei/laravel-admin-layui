@@ -6,7 +6,7 @@
  * Time: 14:35
  */
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use Rap2hpoutre\LaravelLogViewer\LaravelLogViewer;
 use Illuminate\Support\Facades\Crypt;
@@ -68,7 +68,7 @@ class SystemLogController extends Controller
             }
         }
 
-        return view('admin.systemLog.index', $data);
+        return view('admin.system.systemLog.index', $data);
     }
 
     /**

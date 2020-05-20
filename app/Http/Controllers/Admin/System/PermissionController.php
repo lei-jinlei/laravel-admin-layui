@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Requests\PermissionCreateRequest;
 use App\Http\Requests\PermissionUpdateRequest;
@@ -18,7 +18,7 @@ class PermissionController extends Controller
     public function index()
     {
 
-        return view('admin.permission.index');
+        return view('admin.system.permission.index');
     }
 
     /**
@@ -29,7 +29,7 @@ class PermissionController extends Controller
     public function create()
     {
         $permissions = $this->tree();
-        return view('admin.permission.create',compact('permissions'));
+        return view('admin.system.permission.create',compact('permissions'));
     }
 
 
@@ -43,9 +43,9 @@ class PermissionController extends Controller
     {
         $data = $request->all();
         if (Permission::create($data)){
-            return redirect()->to(route('admin.permission'))->with(['status'=>'添加成功']);
+            return redirect()->to(route('admin.system.permission.index'))->with(['status'=>'添加成功']);
         }
-        return redirect()->to(route('admin.permission'))->withErrors('系统错误');
+        return redirect()->to(route('admin.system.permission.index'))->withErrors('系统错误');
     }
 
     /**
@@ -69,7 +69,7 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permissions = $this->tree();
-        return view('admin.permission.edit',compact('permission','permissions'));
+        return view('admin.system.permission.edit',compact('permission','permissions'));
     }
 
     /**
@@ -84,9 +84,9 @@ class PermissionController extends Controller
         $permission = Permission::findOrFail($id);
         $data = $request->all();
         if ($permission->update($data)){
-            return redirect()->to(route('admin.permission'))->with(['status'=>'更新权限成功']);
+            return redirect()->to(route('admin.system.permission.index'))->with(['status'=>'更新权限成功']);
         }
-        return redirect()->to(route('admin.permission'))->withErrors('系统错误');
+        return redirect()->to(route('admin.system.permission.index'))->withErrors('系统错误');
     }
 
     /**

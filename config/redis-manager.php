@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'base_path' => 'admin/redis-manager',
+    'base_path' => 'admin/system/redis-manager',
 
     /*
     |--------------------------------------------------------------------------

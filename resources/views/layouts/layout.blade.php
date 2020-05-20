@@ -40,9 +40,9 @@
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
                     {{ Auth::user()->name }}
                 </a>
-                @can('system.user.edit')
+                @can('admin.system.user.edit')
                     <dl class="layui-nav-child">
-                        <dd><a href="{{ route('admin.user.edit', ['id' => Auth::user()->id]) }}">基本资料</a></dd>
+                        <dd><a href="{{ route('admin.system.user.edit', ['id' => Auth::user()->id]) }}">基本资料</a></dd>
                     </dl>
                 @endcan
             </li>

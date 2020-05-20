@@ -61,7 +61,7 @@
 {{--                        <a href="javascript:;" data-iframe-tab="page/user-setting.html" data-title="基本资料" data-icon="fa fa-gears">基本资料</a>--}}
 {{--                    </dd>--}}
                     <dd>
-                        <a href="javascript:;" data-iframe-tab="{{ route('admin.user.edit', ['id' => Auth::user()->id]) }}" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                        <a href="javascript:;" data-iframe-tab="{{ route('admin.system.user.edit', ['id' => Auth::user()->id]) }}" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
                     </dd>
                     <dd>
                         <a href="{{route('admin.logout')}}">退出登录</a>

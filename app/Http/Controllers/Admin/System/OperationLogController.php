@@ -6,7 +6,7 @@
  * Time: 15:59
  */
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 
 use App\Models\OperationLog;
@@ -17,7 +17,7 @@ class OperationLogController extends Controller
 {
     public function index()
     {
-        return view('admin.operationLog.index')->with([
+        return view('admin.system.operationLog.index')->with([
             'methods' => OperationLog::$METHODS,
             'users' => User::all()->pluck('name', 'id')
         ]);

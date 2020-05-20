@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
@@ -17,7 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('admin.role.index');
+        return view('admin.system.role.index');
     }
 
     /**
@@ -27,7 +27,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.role.create');
+        return view('admin.system.role.create');
     }
 
     /**
@@ -40,9 +40,9 @@ class RoleController extends Controller
     {
         $data = $request->only(['name','display_name']);
         if (Role::create($data)){
-            return redirect()->to(route('admin.role'))->with(['status'=>'添加角色成功']);
+            return redirect()->to(route('admin.system.role.index'))->with(['status'=>'添加角色成功']);
         }
-        return redirect()->to(route('admin.role'))->withErrors('系统错误');
+        return redirect()->to(route('admin.system.role.index'))->withErrors('系统错误');
     }
 
     /**
@@ -65,7 +65,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        return view('admin.role.edit',compact('role'));
+        return view('admin.system.role.edit',compact('role'));
     }
 
     /**
@@ -80,9 +80,9 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $data = $request->only(['name','display_name']);
         if ($role->update($data)){
-            return redirect()->to(route('admin.role'))->with(['status'=>'更新角色成功']);
+            return redirect()->to(route('admin.system.role.index'))->with(['status'=>'更新角色成功']);
         }
-        return redirect()->to(route('admin.role'))->withErrors('系统错误');
+        return redirect()->to(route('admin.system.role.index'))->withErrors('系统错误');
     }
 
     /**
@@ -124,7 +124,7 @@ class RoleController extends Controller
             }
 
         }
-        return view('admin.role.permission',compact('role','permissions'));
+        return view('admin.system.role.permission',compact('role','permissions'));
     }
 
     /**
@@ -137,10 +137,10 @@ class RoleController extends Controller
 
         if (empty($permissions)){
             $role->permissions()->detach();
-            return redirect()->to(route('admin.role'))->with(['status'=>'已更新角色权限']);
+            return redirect()->to(route('admin.system.role.index'))->with(['status'=>'已更新角色权限']);
         }
         $role->syncPermissions($permissions);
-        return redirect()->to(route('admin.role'))->with(['status'=>'已更新角色权限']);
+        return redirect()->to(route('admin.system.role.index'))->with(['status'=>'已更新角色权限']);
     }
 
 }

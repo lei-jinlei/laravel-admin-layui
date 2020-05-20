@@ -56,7 +56,7 @@
 @endsection
 
 @section('script')
-    @can('system.role')
+    @can('admin.system.role.index')
         <script>
             layui.use(['layer','table','form'],function () {
                 var layer = layui.layer;
@@ -66,7 +66,7 @@
                 var dataTable = table.render({
                     elem: '#dataTable'
                     ,height: 500
-                    ,url: "{{ route('admin.operationLog.data') }}" //数据接口
+                    ,url: "{{ route('admin.system.operationLog.data') }}" //数据接口
                     ,where:{}
                     ,page: true //开启分页
                     ,cols: [[ //表头

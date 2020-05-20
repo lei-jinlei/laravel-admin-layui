@@ -10,63 +10,63 @@ return [
 
     'permissions' => [
         [
-            'name' => 'system.manage',
+            'name' => 'admin.system',
             'display_name' => '系统管理',
             'route' => '',
             'icon_id' => '100',
             'child' => [
                 [
-                    'name' => 'system.user',
+                    'name' => 'admin.system.user.index',
                     'display_name' => '用户管理',
-                    'route' => 'admin.user',
+                    'route' => 'admin.system.user.index',
                     'icon_id' => '123',
                     'child' => [
-                        ['name' => 'system.user.create', 'display_name' => '添加用户', 'route' => 'admin.user.create'],
-                        ['name' => 'system.user.edit', 'display_name' => '编辑用户', 'route' => 'admin.user.edit'],
-                        ['name' => 'system.user.destroy', 'display_name' => '删除用户', 'route' => 'admin.user.destroy'],
-                        ['name' => 'system.user.role', 'display_name' => '分配角色', 'route' => 'admin.user.role'],
-                        ['name' => 'system.user.permission', 'display_name' => '分配权限', 'route' => 'admin.user.permission'],
+                        ['name' => 'admin.system.user.create', 'display_name' => '添加用户', 'route' => 'admin.system.user.create'],
+                        ['name' => 'admin.system.user.edit', 'display_name' => '编辑用户', 'route' => 'admin.system.user.edit'],
+                        ['name' => 'admin.system.user.destroy', 'display_name' => '删除用户', 'route' => 'admin.system.user.destroy'],
+                        ['name' => 'admin.system.user.role', 'display_name' => '分配角色', 'route' => 'admin.system.user.role'],
+                        ['name' => 'admin.system.user.permission', 'display_name' => '分配权限', 'route' => 'admin.system.user.permission'],
                     ]
                 ],
                 [
-                    'name' => 'system.role',
+                    'name' => 'admin.system.role.index',
                     'display_name' => '角色管理',
-                    'route' => 'admin.role',
+                    'route' => 'admin.system.role.index',
                     'icon_id' => '121',
                     'child' => [
-                        ['name' => 'system.role.create', 'display_name' => '添加角色', 'route' => 'admin.role.create'],
-                        ['name' => 'system.role.edit', 'display_name' => '编辑角色', 'route' => 'admin.role.edit'],
-                        ['name' => 'system.role.destroy', 'display_name' => '删除角色', 'route' => 'admin.role.destroy'],
-                        ['name' => 'system.role.permission', 'display_name' => '分配权限', 'route' => 'admin.role.permission'],
+                        ['name' => 'admin.system.role.create', 'display_name' => '添加角色', 'route' => 'admin.system.role.create'],
+                        ['name' => 'admin.system.role.edit', 'display_name' => '编辑角色', 'route' => 'admin.system.role.edit'],
+                        ['name' => 'admin.system.role.destroy', 'display_name' => '删除角色', 'route' => 'admin.system.role.destroy'],
+                        ['name' => 'admin.system.role.permission', 'display_name' => '分配权限', 'route' => 'admin.system.role.permission'],
                     ]
                 ],
                 [
-                    'name' => 'system.permission',
+                    'name' => 'admin.system.permission.index',
                     'display_name' => '权限管理',
-                    'route' => 'admin.permission',
+                    'route' => 'admin.system.permission.index',
                     'icon_id' => '12',
                     'child' => [
-                        ['name' => 'system.permission.create', 'display_name' => '添加权限', 'route' => 'admin.permission.create'],
-                        ['name' => 'system.permission.edit', 'display_name' => '编辑权限', 'route' => 'admin.permission.edit'],
-                        ['name' => 'system.permission.destroy', 'display_name' => '删除权限', 'route' => 'admin.permission.destroy'],
+                        ['name' => 'admin.system.permission.create', 'display_name' => '添加权限', 'route' => 'admin.system.permission.create'],
+                        ['name' => 'admin.system.permission.edit', 'display_name' => '编辑权限', 'route' => 'admin.system.permission.edit'],
+                        ['name' => 'admin.system.permission.destroy', 'display_name' => '删除权限', 'route' => 'admin.system.permission.destroy'],
                     ]
                 ],
                 [
-                    'name' => 'system.log',
+                    'name' => 'admin.system.systemLog.index',
                     'display_name' => '系统日志',
-                    'route' => 'admin.systemLog',
+                    'route' => 'admin.system.systemLog.index',
                     'icon_id' => '12',
                 ],
                 [
-                    'name' => 'system.operationLog',
+                    'name' => 'admin.system.operationLog.index',
                     'display_name' => '操作日志',
-                    'route' => 'admin.operationLog',
+                    'route' => 'admin.system.operationLog.index',
                     'icon_id' => '12',
                 ],
                 [
-                    'name' => 'system.redisManager',
+                    'name' => 'admin.system.redisManager',
                     'display_name' => 'Redis管理',
-                    'route' => 'admin.redisManager',
+                    'route' => 'admin.system.redisManager',
                     'icon_id' => '12',
                 ]
             ]

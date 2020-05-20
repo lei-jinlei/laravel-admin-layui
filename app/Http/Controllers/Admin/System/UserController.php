@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        return view('admin.system.user.index');
     }
 
     /**
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        return view('admin.system.user.create');
     }
 
     /**
@@ -43,9 +44,9 @@ class UserController extends Controller
         $data['uuid'] = \Faker\Provider\Uuid::uuid();
         $data['password'] = bcrypt($data['password']);
         if (User::create($data)){
-            return redirect()->to(route('admin.user'))->with(['status'=>'添加用户成功']);
+            return redirect()->to(route('admin.system.user.index'))->with(['status'=>'添加用户成功']);
         }
-        return redirect()->to(route('admin.user'))->withErrors('系统错误');
+        return redirect()->to(route('admin.system.user.index'))->withErrors('系统错误');
     }
 
     /**
@@ -68,7 +69,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.user.edit',compact('user'));
+        return view('admin.system.user.edit',compact('user'));
     }
 
     /**
@@ -86,9 +87,9 @@ class UserController extends Controller
             $data['password'] = bcrypt($request->get('password'));
         }
         if ($user->update($data)){
-            return redirect()->to(route('admin.user'))->with(['status'=>'更新用户成功']);
+            return redirect()->to(route('admin.system.user.index'))->with(['status'=>'更新用户成功']);
         }
-        return redirect()->to(route('admin.user'))->withErrors('系统错误');
+        return redirect()->to(route('admin.system.user.index'))->withErrors('系统错误');
     }
 
     /**
@@ -120,7 +121,7 @@ class UserController extends Controller
         foreach ($roles as $role){
             $role->own = $user->hasRole($role) ? true : false;
         }
-        return view('admin.user.role',compact('roles','user'));
+        return view('admin.system.user.role',compact('roles','user'));
     }
 
     /**
@@ -131,9 +132,9 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $roles = $request->get('roles',[]);
        if ($user->syncRoles($roles)){
-           return redirect()->to(route('admin.user'))->with(['status'=>'更新用户角色成功']);
+           return redirect()->to(route('admin.system.user.index'))->with(['status'=>'更新用户角色成功']);
        }
-        return redirect()->to(route('admin.user'))->withErrors('系统错误');
+        return redirect()->to(route('admin.system.user.index'))->withErrors('系统错误');
     }
 
     /**
@@ -156,7 +157,7 @@ class UserController extends Controller
                 }
             }
         }
-        return view('admin.user.permission',compact('user','permissions'));
+        return view('admin.system.user.permission',compact('user','permissions'));
     }
 
     /**
@@ -169,10 +170,42 @@ class UserController extends Controller
 
         if (empty($permissions)){
             $user->permissions()->detach();
-            return redirect()->to(route('admin.user'))->with(['status'=>'已更新用户直接权限']);
+            return redirect()->to(route('admin.system.user.index'))->with(['status'=>'已更新用户直接权限']);
         }
         $user->syncPermissions($permissions);
-        return redirect()->to(route('admin.user'))->with(['status'=>'已更新用户直接权限']);
+        return redirect()->to(route('admin.system.user.index'))->with(['status'=>'已更新用户直接权限']);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 数据表格接口
+     */
+    public function data(Request $request)
+    {
+        $model = $request->get('model');
+        switch (strtolower($model)) {
+            case 'user':
+                $query = new User();
+                break;
+            case 'role':
+                $query = new Role();
+                break;
+            case 'permission':
+                $query = new Permission();
+                $query = $query->where('parent_id', $request->get('parent_id', 0))->with('icon');
+                break;
+            default:
+                $query = new User();
+                break;
+        }
+        $res = $query->paginate($request->get('limit', 30))->toArray();
+        $data = [
+            'code' => 0,
+            'msg' => '正在请求中...',
+            'count' => $res['total'],
+            'data' => $res['data']
+        ];
+        return response()->json($data);
+    }
 }

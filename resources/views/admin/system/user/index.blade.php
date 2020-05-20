@@ -2,63 +2,65 @@
 
 @section('content')
     <div class="layui-card">
+
         <div class="layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-btn-group ">
-                @can('system.permission.destroy')
-                    <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删 除</button>
+            <div class="layui-btn-group">
+                @can('admin.system.user.destroy')
+                <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删 除</button>
                 @endcan
-                @can('system.permission.create')
-                    <a class="layui-btn layui-btn-sm" href="{{ route('admin.permission.create') }}">添 加</a>
+                @can('admin.system.user.create')
+                <a class="layui-btn layui-btn-sm" href="{{ route('admin.system.user.create') }}">添 加</a>
                 @endcan
-                <button class="layui-btn layui-btn-sm" id="returnParent" pid="0">返回上级</button>
             </div>
         </div>
+
         <div class="layui-card-body">
             <table id="dataTable" lay-filter="dataTable"></table>
-            <script type="text/html" id="icon">
-                <i class="layui-icon @{{ d.icon.class }}"></i>
-            </script>
             <script type="text/html" id="options">
                 <div class="layui-btn-group">
-                    @can('system.permission')
-                        <a class="layui-btn layui-btn-sm" lay-event="children">子权限</a>
+                    @can('admin.system.user.create')
+                    <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
                     @endcan
-                    @can('system.permission.edit')
-                        <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+                    @can('admin.system.user.role')
+                    <a class="layui-btn layui-btn-sm" lay-event="role">角色</a>
                     @endcan
-                    @can('system.permission.destroy')
-                        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+                    @can('admin.system.user.permission')
+                    <a class="layui-btn layui-btn-sm" lay-event="permission">权限</a>
+                    @endcan
+                    @can('admin.system.user.destroy')
+                    <a class="layui-btn layui-btn-danger layui-btn-sm " lay-event="del">删除</a>
                     @endcan
                 </div>
             </script>
         </div>
+
     </div>
 @endsection
 
 @section('script')
-    @can('system.permission')
+    @can('admin.system.user.index')
     <script>
         layui.use(['layer','table','form'],function () {
             var layer = layui.layer;
             var form = layui.form;
             var table = layui.table;
+
             //用户表格初始化
             var dataTable = table.render({
                 elem: '#dataTable'
                 ,height: 500
                 ,url: "{{ route('admin.data') }}" //数据接口
-                ,where:{model:"permission"}
+                ,where:{model:"user"}
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {checkbox: true,fixed: true}
                     ,{field: 'id', title: 'ID', sort: true,width:80}
-                    ,{field: 'name', title: '权限名称'}
-                    ,{field: 'display_name', title: '显示名称'}
-                    ,{field: 'route', title: '路由'}
-                    ,{field: 'icon_id', title: '图标', toolbar:'#icon'}
+                    ,{field: 'name', title: '用户名'}
+                    ,{field: 'email', title: '邮箱'}
+                    ,{field: 'phone', title: '电话'}
                     ,{field: 'created_at', title: '创建时间'}
                     ,{field: 'updated_at', title: '更新时间'}
-                    ,{fixed: 'right', width: 260, align:'center', toolbar: '#options'}
+                    ,{fixed: 'right', width: 320, align:'center', toolbar: '#options'}
                 ]]
             });
 
@@ -68,7 +70,7 @@
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                 if(layEvent === 'del'){
                     layer.confirm('确认删除吗？', function(index){
-                        $.post("{{ route('admin.permission.destroy') }}",{_method:'delete',ids:[data.id]},function (result) {
+                        $.post("{{ route('admin.system.user.destroy') }}",{_method:'delete',ids:[data.id]},function (result) {
                             if (result.code==0){
                                 obj.del(); //删除对应行（tr）的DOM结构
                             }
@@ -77,23 +79,17 @@
                         });
                     });
                 } else if(layEvent === 'edit'){
-                    location.href = '/admin/permission/'+data.id+'/edit';
-                } else if (layEvent === 'children'){
-                    var pid = $("#returnParent").attr("pid");
-                    if (data.parent_id!=0){
-                        $("#returnParent").attr("pid",pid+'_'+data.parent_id);
-                    }
-                    dataTable.reload({
-                        where:{model:"permission",parent_id:data.id},
-                        page:{curr:1}
-                    })
+                    location.href = "{{ route('admin.system.user.index') }}/"+data.id+'/edit';
+                } else if (layEvent === 'role'){
+                    location.href = "{{ route('admin.system.user.index') }}/"+data.id+'/role';
+                } else if (layEvent === 'permission'){
+                    location.href = "{{ route('admin.system.user.index') }}/"+data.id+'/permission';
                 }
             });
 
             //按钮批量删除
             $("#listDelete").click(function () {
-                layer.msg("由于权限重要性，系统已禁止批量删除",{icon:5});
-                /*var ids = []
+                var ids = []
                 var hasCheck = table.checkStatus('dataTable')
                 var hasCheckData = hasCheck.data
                 if (hasCheckData.length>0){
@@ -103,7 +99,7 @@
                 }
                 if (ids.length>0){
                     layer.confirm('确认删除吗？', function(index){
-                        $.post("{{ route('admin.permission.destroy') }}",{_method:'delete',ids:ids},function (result) {
+                        $.post("{{ route('admin.system.user.destroy') }}",{_method:'delete',ids:ids},function (result) {
                             if (result.code==0){
                                 dataTable.reload()
                             }
@@ -113,24 +109,12 @@
                     })
                 }else {
                     layer.msg('请选择删除项',{icon:5})
-                }*/
-            });
-            //返回上一级
-            $("#returnParent").click(function () {
-                var pid = $(this).attr("pid");
-                if (pid!='0'){
-                    ids = pid.split('_');
-                    parent_id = ids.pop();
-                    $(this).attr("pid",ids.join('_'));
-                }else {
-                    parent_id=pid;
                 }
-                dataTable.reload({
-                    where:{model:"permission",parent_id:parent_id},
-                    page:{curr:1}
-                })
             })
         })
     </script>
     @endcan
 @endsection
+
+
+

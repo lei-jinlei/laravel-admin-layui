@@ -14,7 +14,7 @@
             <h2>角色 【{{$role->name}}】分配权限</h2>
         </div>
         <div class="layui-card-body">
-            <form action="{{route('admin.role.assignPermission',['role'=>$role])}}" method="post" class="layui-form">
+            <form action="{{route('admin.system.role.assignPermission',['role'=>$role])}}" method="post" class="layui-form">
                 {{csrf_field()}}
                 {{method_field('put')}}
                 @forelse($permissions as $first)
@@ -44,7 +44,7 @@
                 @endforelse
                 <div class="layui-form-item">
                     <button type="submit" class="layui-btn" lay-submit="" >确 认</button>
-                    <a href="{{route('admin.role')}}"  class="layui-btn" >返 回</a>
+                    <a href="{{route('admin.system.role.index')}}"  class="layui-btn" >返 回</a>
                 </div>
 
             </form>
